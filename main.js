@@ -29,7 +29,7 @@ while(true) {
         process.chdir(input.slice(3)); // Change the current working directory
     }
 
-    // Ls command. Check if the input is `ls` or starts with `ls`
+    // Ls command. Check if the input is `ls`
     if (input === 'ls'.toLowerCase()) {
         const files = fs.readdirSync(process.cwd());
         files.forEach(file => {
