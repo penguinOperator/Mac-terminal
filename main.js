@@ -46,7 +46,7 @@ while(true) {
     // Cat command. Check if the input starts with 'cat'
     if (input.startsWith('cat ')) {
         const arg = input.slice(4);
-        const data = fs.readFileSync(arg, "utf8");
+        const data = fs.readFileSync(arg, "utf8"); // Read file content
         console.log(data);
     }
 }
