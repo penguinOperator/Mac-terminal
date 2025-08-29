@@ -12,7 +12,21 @@ async function mainLoop() {
         if (input === "exit") break;
 
         if (input.startsWith('echo ')) {
-            console.log(input.slice(5));
+            // Support echoing into files: echo hello > file.txt
+            const echoMatch = input.match(/^echo (.*?)(?:\s*>\s*(.+))?$/);
+            if (echoMatch) {
+                const text = echoMatch[1];
+                const file = echoMatch[2];
+                if (file) {
+                    try {
+                        fs.writeFileSync(file.trim(), text);
+                    } catch (err) {
+                        console.error(chalk.redBright("Error writing to file:", err.message));
+                    }
+                } else {
+                    console.log(text);
+                }
+            }
         } else if (input.startsWith('say ')) {
             await new Promise(resolve => {
                 say.speak(input.slice(4), undefined, undefined, resolve);
