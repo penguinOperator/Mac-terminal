@@ -33,14 +33,18 @@ while(true) {
 
     // Ls command. Check if the input is `ls`
     if (input === 'ls'.toLowerCase()) {
-        const files = fs.readdirSync(process.cwd());
-        files.forEach(file => {
-            if (fs.statSync(file).isDirectory()) {
-                console.log(chalk.blueBright(file + '/'));
-            } else {
-                console.log(file);
-            }
-        });
+        try {
+            const files = fs.readdirSync(process.cwd());
+            files.forEach(file => {
+                if (fs.statSync(file).isDirectory()) {
+                    console.log(chalk.blueBright(file + '/'));
+                } else {
+                    console.log(file);
+                }
+            });
+        } catch (err) {
+            console.error(chalk.redBright("Error reading directory:", err.message));
+        }
     }
 
     // Cat command. Check if the input starts with 'cat'
