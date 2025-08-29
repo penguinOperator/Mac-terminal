@@ -59,6 +59,17 @@ async function mainLoop() {
             } catch (err) {
                 console.log(chalk.redBright("Error creating directory:", err.message));
             }
+        } else if (input.startsWith('touch ')) {
+            try {
+                const fileName = input.slice(6).trim();
+                if (!fileName) {
+                    console.log(chalk.redBright("Choose a name for the file bruhh"));
+                } else {
+                    fs.writeFileSync(fileName, "");
+                }
+            } catch (err) {
+                console.log(chalk.redBright("Error creating file:", err.message));
+            }
         }
 
     }
