@@ -1,5 +1,7 @@
 import prompt from 'prompt-sync';
 import say from 'say';
+import fs from 'fs';
+import chalk from 'chalk';
 
 process.stdout.write('\x1Bc'); // Clear terminal
 
@@ -25,5 +27,17 @@ while(true) {
     // Cd command. Check if the input starts with 'cd'
     if (input.startsWith('cd ')) {
         process.chdir(input.slice(3)); // Change the current working directory
+    }
+
+    // Ls command. Check if the input is `ls` or starts with `ls`
+    if (input === 'ls'.toLowerCase()) {
+        const files = fs.readdirSync(process.cwd());
+        files.forEach(file => {
+            if (fs.statSync(file).isDirectory()) {
+                console.log(chalk.blueBright(file + '/'));
+            } else {
+                console.log(file);
+            }
+        });
     }
 }
