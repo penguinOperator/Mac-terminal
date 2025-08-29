@@ -8,7 +8,7 @@ process.stdout.write('\x1Bc'); // Clear terminal
 
 async function mainLoop() {
     while(true) {
-        const input = prompt()('$ ');
+        const input = prompt()(`${process.cwd()}${chalk.bold('$')} `);
         if (input === "exit") break;
 
         if (input.startsWith('echo ')) {
@@ -46,6 +46,8 @@ async function mainLoop() {
             } catch (err) {
                 console.error(chalk.redBright("Error reading file:", err.message));
             }
+        } else if (input === 'clear') {
+            process.stdout.write('\x1Bc');
         }
     }
 }
