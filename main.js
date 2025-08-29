@@ -28,7 +28,11 @@ while(true) {
 
     // Cd command. Check if the input starts with 'cd'
     if (input.startsWith('cd ')) {
-        process.chdir(input.slice(3)); // Change the current working directory
+        try {
+            process.chdir(input.slice(3)); // Change the current working directory
+        } catch (err) {
+            console.error(chalk.redBright("Error changing directory:", err.message));
+        }
     }
 
     // Ls command. Check if the input is `ls`
