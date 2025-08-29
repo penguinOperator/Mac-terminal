@@ -9,6 +9,8 @@ while(true) {
     // Get user input
     const input = prompt()('$ ');
 
+    if (input === "exit") break;
+
     // Echo command. Check if the input starts with 'echo'
     if (input.startsWith('echo ')) {
         console.log(input.slice(5)); // Echo the input after 5 letters
@@ -39,5 +41,12 @@ while(true) {
                 console.log(file);
             }
         });
+    }
+
+    // Cat command. Check if the input starts with 'cat'
+    if (input.startsWith('cat ')) {
+        const arg = input.slice(4);
+        const data = fs.readFileSync(arg, "utf8");
+        console.log(data);
     }
 }
