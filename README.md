@@ -1,6 +1,5 @@
 # Mac Terminal
 A terminal that acts like a MacOS terminal.
 
-## Requirements:
- - Node.js
-- - -
+## Features:
+- Supports standard commands like `echo`,
