@@ -24,10 +24,6 @@ while(true) {
     // Pwd command. Check if the input is 'pwd'
     if (input === 'pwd'.toLowerCase()) {
         console.log(process.cwd()); // Print the current working directory
-    } else if (input !== 'pwd') {
-        console.log(chalk.redBright("Enter a valid argument"));
-    } else {
-        console.log(chalk.redBright("Enter a valid argument"));
     }
 
     // Cd command. Check if the input starts with 'cd'
