@@ -48,7 +48,14 @@ async function mainLoop() {
             }
         } else if (input === 'clear') {
             process.stdout.write('\x1Bc');
+        } else if (input === 'mkdir'.toLowerCase()) {
+            try {
+                fs.mkdirSync(args);
+            } catch (err) {
+                console.log(chalk.redBright("Error creating directory:", err.message));
+            }
         }
+
     }
 }
 
