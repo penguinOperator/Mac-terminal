@@ -12,20 +12,29 @@ async function mainLoop() {
         if (input === "exit") break;
 
         if (input.startsWith('echo ')) {
-            // Support echoing into files: echo hello > file.txt
-            const echoMatch = input.match(/^echo (.*?)(?:\s*>\s*(.+))?$/);
-            if (echoMatch) {
-                const text = echoMatch[1];
-                const file = echoMatch[2];
-                if (file) {
-                    try {
-                        fs.writeFileSync(file.trim(), text);
-                    } catch (err) {
-                        console.error(chalk.redBright("Error writing to file:", err.message));
-                    }
-                } else {
-                    console.log(text);
+            // Support echoing into files: echo hello > file.txt and echo hello >> file.txt
+            const appendMatch = input.match(/^echo (.*?)(?:\s*>>\s*(.+))$/);
+            const overwriteMatch = input.match(/^echo (.*?)(?:\s*>\s*(.+))$/);
+            if (appendMatch) {
+                const text = appendMatch[1];
+                const file = appendMatch[2];
+                try {
+                    fs.appendFileSync(file.trim(), text);
+                } catch (err) {
+                    console.error(chalk.redBright("Error appending to file:", err.message));
                 }
+            } else if (overwriteMatch) {
+                const text = overwriteMatch[1];
+                const file = overwriteMatch[2];
+                try {
+                    fs.writeFileSync(file.trim(), text);
+                } catch (err) {
+                    console.error(chalk.redBright("Error writing to file:", err.message));
+                }
+            } else {
+                // Just echo to terminal
+                const text = input.slice(5);
+                console.log(text);
             }
         } else if (input.startsWith('say ')) {
             await new Promise(resolve => {
