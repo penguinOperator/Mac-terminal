@@ -48,9 +48,15 @@ async function mainLoop() {
             }
         } else if (input === 'clear') {
             process.stdout.write('\x1Bc');
-        } else if (input === 'mkdir'.toLowerCase()) {
+        } else if (input.startsWith('mkdir ')) {
             try {
-                fs.mkdirSync(args);
+                const dirName = input.slice(6).trim();
+                if (!dirName) {
+                    console.log(chalk.redBright("Please specify a directory name."));
+                } else {
+                    fs.mkdirSync(dirName);
+                    console.log(chalk.greenBright(`Directory '${dirName}' created.`));
+                }
             } catch (err) {
                 console.log(chalk.redBright("Error creating directory:", err.message));
             }
