@@ -104,8 +104,20 @@ async function mainLoop() {
             } catch (err) {
                 console.log(chalk.redBright("Error moving file:", err.message));
             }
+        } else if (input.startsWith('rm ')) {
+            try {
+                const fileName = input.slice(3).trim();
+                if (!fileName) {
+                    console.log(chalk.redBright("rm: missing file operand"));
+                } else {
+                    fs.unlinkSync(fileName);
+                }
+            } catch (err) {
+                console.log(chalk.redBright("Error removing file:", err.message));
+            }
+        } else {
+            console.log(chalk.redBright("Unknown command:", input));
         }
-
     }
 }
 
