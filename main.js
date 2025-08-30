@@ -109,11 +109,16 @@ async function mainLoop() {
                 const fileName = input.slice(3).trim();
                 if (!fileName) {
                     console.log(chalk.redBright("rm: missing file operand"));
+                } else if (fileName.endsWith('/')) {
+                    // Remove directory
+                    const dirName = fileName.replace(/\/+$/, '');
+                    fs.rmdirSync(dirName, { recursive: true });
                 } else {
+                    // Remove file
                     fs.unlinkSync(fileName);
                 }
             } catch (err) {
-                console.log(chalk.redBright("Error removing file:", err.message));
+                console.log(chalk.redBright("Error removing file or directory:", err.message));
             }
         } else {
             console.log(chalk.redBright("Unknown command:", input));
