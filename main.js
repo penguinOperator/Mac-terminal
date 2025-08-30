@@ -120,8 +120,17 @@ async function mainLoop() {
             } catch (err) {
                 console.log(chalk.redBright("Error removing file or directory:", err.message));
             }
-        } else {
-            console.log(chalk.redBright("Unknown command:", input));
+        } else if (input.startsWith('cp ')) {
+            try {
+                const [source, dest] = input.slice(3).split(' ');
+                if (!source || !dest) {
+                    console.log(chalk.redBright("cp: missing file operand"));
+                } else {
+                    fs.copyFileSync(source, dest);
+                }
+            } catch (err) {
+                console.log(chalk.redBright("Error copying file:", err.message));
+            }
         }
     }
 }
