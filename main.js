@@ -131,6 +131,8 @@ async function mainLoop() {
             } catch (err) {
                 console.log(chalk.redBright("Error copying file:", err.message));
             }
+        } else if (input === 'whoami') {
+            console.log("Current user:", process.env.USER || process.env.USERNAME);
         }
     }
 }
