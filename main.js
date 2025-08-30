@@ -93,6 +93,17 @@ async function mainLoop() {
             } catch (err) {
                 console.log(chalk.redBright("Error creating file:", err.message));
             }
+        } else if (input.startsWith('mv ')) {
+            try {
+                const [source, dest] = input.slice(3).split(' ');
+                if (!source || !dest) {
+                    console.log(chalk.redBright("mv: missing file operand"));
+                } else {
+                    fs.renameSync(source, dest);
+                }
+            } catch (err) {
+                console.log(chalk.redBright("Error moving file:", err.message));
+            }
         }
 
     }
