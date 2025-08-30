@@ -131,8 +131,24 @@ async function mainLoop() {
             } catch (err) {
                 console.log(chalk.redBright("Error copying file:", err.message));
             }
-        } else if (input === 'whoami') {
+        } else if (input === 'whoami'.toLowerCase()) {
             console.log("Current user:", process.env.USER || process.env.USERNAME);
+        } else if (input === 'help'.toLowerCase()) {
+            console.log("Available commands:");
+            console.log("  ls       - List files");
+            console.log("  cat      - Read file");
+            console.log("  clear    - Clear screen");
+            console.log("  mkdir    - Create directory");
+            console.log("  touch    - Create file");
+            console.log("  mv       - Move file");
+            console.log("  rm       - Remove file");
+            console.log("  cp       - Copy file");
+            console.log("  whoami   - Show current user");
+            console.log("  help     - Show this help message");
+        } else if (input === 'date' || input === 'DATE') {
+            console.log(new Date().toLocaleString());
+        } else {
+            console.log("Unknown command:", input);
         }
     }
 }
